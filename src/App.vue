@@ -1,11 +1,28 @@
-<script setup></script>
+<script setup>
+
+
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  
+  <div class="map-div">
+
+    <img id="map" src="/Sample.png"
+    width="2000"
+    height="1400"
+    />
+    
+    <div class="sprite1">
+
+      
+
+    </div>
+
+
+
+  </div>
+  
+
 </template>
 
 <style scoped></style>
