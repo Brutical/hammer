@@ -4,6 +4,30 @@ import {ref, useTemplateRef, onMounted} from "vue";
 const mapLeft = ref(0);
 const mapTop = ref(0);
 const mapRef = useTemplateRef('mapRef')
+const spriteImage = {
+  right: [
+      '/right-walk0.png',
+      '/right-walk1.png',
+      '/right-walk2.png',
+      '/right-walk3.png',
+      '/right-walk4.png',
+      '/right-walk5.png',
+      '/right-walk6.png',
+      '/right-walk7.png',
+      '/right-walk8.png',
+  ]
+}
+
+const sprite = ref({
+  image: spriteImage.right[0],
+  imageIndex: 0
+})
+
+const spriteMove = function (direction) {
+  sprite.value.imageIndex = sprite.value.imageIndex === spriteImage[direction].length - 1 ? 0 : sprite.value.imageIndex + 1;
+  sprite.value.image = spriteImage[direction][sprite.value.imageIndex];
+}
+
 const mapSlide = function (event) {
   if (!['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(event.code)) {
     return;
@@ -11,7 +35,10 @@ const mapSlide = function (event) {
   if (event.code === 'ArrowRight') {
     mapLeft.value -= 2;
   }
-  if (event.code === 'ArrowLeft') mapLeft.value += 2;
+  if (event.code === 'ArrowLeft') {
+    mapLeft.value += 2;
+  }
+  spriteMove('right');
 }
 
 onMounted(() => {
@@ -35,16 +62,13 @@ onMounted(() => {
       @keydown="mapSlide"
       :style="{'left': + mapLeft + 'px'}"
     />
-    
-    <div class="sprite-holder">
-      <div class="sprite1"></div>
-      
-    </div>
-
-
-
   </div>
-
+  <div class="sprite">
+    <img
+        :src="sprite.image"
+        alt="character"
+    />
+  </div>
 </template>
 
 <style scoped>
@@ -56,4 +80,12 @@ onMounted(() => {
 .map {
   position: absolute;
 }
+
+.sprite {
+  position: absolute;
+  top: 50svh;
+  left: 50svw;
+  z-index: 3;
+}
+
 </style>
